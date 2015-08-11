@@ -50,18 +50,18 @@ function logger({ getState }) {
 
     const diff = differ(prevState, newState);
 
+    console.group('diff @', `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`);
     if (diff) {
-      console.group('diff @', `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`);
-
       diff.forEach((elem) => {
         const { kind } = elem;
         const output = render(elem);
 
         console.log(`%c ${dictionary[kind].text}`, style(kind), output);
       });
-
-      console.groupEnd('diff');
+    } else {
+      console.log('—— no diff ——');
     }
+    console.groupEnd('diff');
 
     return returnValue;
   };

@@ -68,9 +68,8 @@ function logger(_ref) {
 
       var diff = (0, _deepDiff2['default'])(prevState, newState);
 
+      console.group('diff @', time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds());
       if (diff) {
-        console.group('diff @', time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds());
-
         diff.forEach(function (elem) {
           var kind = elem.kind;
 
@@ -78,9 +77,10 @@ function logger(_ref) {
 
           console.log('%c ' + dictionary[kind].text, style(kind), output);
         });
-
-        console.groupEnd('diff');
+      } else {
+        console.log('—— no diff ——');
       }
+      console.groupEnd('diff');
 
       return returnValue;
     };
