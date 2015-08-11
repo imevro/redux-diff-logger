@@ -3,7 +3,7 @@
 ![logger](http://i.imgur.com/SR5jsdm.png?1)
 
 ### Install
-`npm i --save-dev redux-diff-logger`
+`npm i --save redux-diff-logger`
 
 ### Usage
 ```
