@@ -50,39 +50,47 @@ function render(diff) {
     case 'D':
       return '' + path.join('.');
     case 'A':
-      return (path.join('.') + '[' + index + ']', item);
+      return path.join('.') + '[' + index + ']', item;
     default:
       return null;
   }
 }
 
-function logger(_ref) {
-  var getState = _ref.getState;
+function logger() {
+  var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 
-  return function (next) {
-    return function (action) {
-      var prevState = getState();
-      var returnValue = next(action);
-      var newState = getState();
-      var time = new Date();
+  return function (_ref) {
+    var getState = _ref.getState;
+    return function (next) {
+      return function (action) {
+        var _options$transformer = options.transformer;
+        var transformer = _options$transformer === undefined ? function (state) {
+          return state;
+        } : _options$transformer;
 
-      var diff = (0, _deepDiff2['default'])(prevState, newState);
+        var prevState = transformer(getState());
+        var returnValue = next(action);
+        var newState = transformer(getState());
+        var time = new Date();
 
-      console.group('diff @', time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds());
-      if (diff) {
-        diff.forEach(function (elem) {
-          var kind = elem.kind;
+        var diff = (0, _deepDiff2['default'])(prevState, newState);
 
-          var output = render(elem);
+        console.group('diff @', time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds());
+        if (diff) {
+          diff.forEach(function (elem) {
+            var kind = elem.kind;
 
-          console.log('%c ' + dictionary[kind].text, style(kind), output);
-        });
-      } else {
-        console.log('—— no diff ——');
-      }
-      console.groupEnd('diff');
+            var output = render(elem);
 
-      return returnValue;
+            console.log('%c ' + dictionary[kind].text, style(kind), output);
+          });
+        } else {
+          console.log('—— no diff ——');
+        }
+        console.groupEnd('diff');
+
+        return returnValue;
+      };
     };
   };
 }
