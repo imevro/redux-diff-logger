@@ -41,11 +41,14 @@ function render(diff) {
   }
 }
 
-function logger({ getState }) {
-  return (next) => (action) => {
-    const prevState = getState();
+function logger(options = {}) {
+  return ({getState}) => (next) => (action) => {
+    const {
+      transformer = state => state,
+    } = options;
+    const prevState = transformer(getState());
     const returnValue = next(action);
-    const newState = getState();
+    const newState = transformer(getState());
     const time = new Date();
 
     const diff = differ(prevState, newState);
