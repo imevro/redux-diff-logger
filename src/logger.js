@@ -35,7 +35,7 @@ function render(diff) {
   case 'D':
     return `${path.join('.')}`;
   case 'A':
-    return (`${path.join('.')}[${index}]`, item);
+    return [`${path.join('.')}[${index}]`, item];
   default:
     return null;
   }
