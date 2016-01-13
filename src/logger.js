@@ -1,6 +1,9 @@
 // https://github.com/flitbit/diff#differences
 import differ from 'deep-diff';
 
+const consoleGroup = (console.group || console.log).bind(console);
+const consoleGroupEnd = (console.groupEnd || function(){}).bind(console);
+
 const dictionary = {
   E: {
     color: '#2196F3',
@@ -50,7 +53,7 @@ function logger({ getState }) {
 
     const diff = differ(prevState, newState);
 
-    console.group('diff @', `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`);
+    consoleGroup('diff @', `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`);
     if (diff) {
       diff.forEach((elem) => {
         const { kind } = elem;
@@ -61,7 +64,7 @@ function logger({ getState }) {
     } else {
       console.log('—— no diff ——');
     }
-    console.groupEnd('diff');
+    consoleGroupEnd('diff');
 
     return returnValue;
   };
