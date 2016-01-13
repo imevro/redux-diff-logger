@@ -1,18 +1,15 @@
 {
   "name": "redux-diff-logger",
-  "version": "0.0.6",
+  "version": "0.0.8",
   "description": "Diff logger between states for redux",
-  "main": "build/logger.js",
+  "main": "lib/index.js",
   "scripts": {
     "test": "npm run lint",
-    "clean": "$(npm bin)/rimraf build",
+    "clean": "$(npm bin)/rimraf lib",
     "lint": "$(npm bin)/eslint src",
-    "build:module": "$(npm bin)/babel src --out-dir build",
-    "build:example": "$(npm bin)/webpack -p --config example/webpack.config.production.js",
-    "build": "npm run build:module && npm run build:example",
-    "prepublish": "npm run clean && npm run test && npm run build",
-    "deploy:ghpages": "$(npm bin)/gh-pages -d example/dist",
-    "deploy": "npm run build && git add -A && git commit -am 'chore: update docs' && git push && npm run deploy:ghpages"
+    "build:lib": "$(npm bin)/babel src --out-dir lib",
+    "build": "npm run build:lib",
+    "prepublish": "npm run clean && npm run test && npm run build"
   },
   "repository": {
     "type": "git",

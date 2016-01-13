@@ -50,7 +50,12 @@ function logger({ getState }) {
 
     const diff = differ(prevState, newState);
 
-    console.group('diff @', `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`);
+    try {
+      console.group('diff @', `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`);
+    } catch (e) {
+      console.log('diff @', `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`);
+    }
+
     if (diff) {
       diff.forEach((elem) => {
         const { kind } = elem;
@@ -61,7 +66,12 @@ function logger({ getState }) {
     } else {
       console.log('—— no diff ——');
     }
-    console.groupEnd('diff');
+
+    try {
+      console.groupEnd();
+    } catch (e) {
+      console.log(`—— diff end —— `);
+    }
 
     return returnValue;
   };
