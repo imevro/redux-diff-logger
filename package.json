@@ -1,6 +1,6 @@
 {
   "name": "redux-diff-logger",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Diff logger between states for redux",
   "main": "lib/index.js",
   "scripts": {
@@ -15,6 +15,10 @@
     "type": "git",
     "url": "git+https://github.com/fcomb/redux-diff-logger.git"
   },
+  "files": [
+    "lib",
+    "src"
+  ],
   "keywords": [
     "redux",
     "logger",
